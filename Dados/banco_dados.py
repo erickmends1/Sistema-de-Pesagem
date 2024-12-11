@@ -1,6 +1,6 @@
 
 import sqlite3
-from Veiculos.veiculo import Veiculo
+from Entidades.Veiculos.veiculo import Veiculo
 
 class BancoDados:
     def __init__(self, nome_db='pesagem.db'):

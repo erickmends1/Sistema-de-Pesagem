@@ -1,7 +1,9 @@
-from funcoes import *
+#from Utilitarios.funcoes import *
 from Dados.banco_dados import BancoDados
-from Veiculos.veiculo import Veiculo
-from Ticket.ticket import TicketExcel
+from Entidades.Veiculos.veiculo import Veiculo
+from Ticket.Ticket import TicketExcel
+
+
 
 #Criando tabela
 table = BancoDados()
@@ -11,7 +13,7 @@ bruto = float(input('Digite o peso bruto: '))
 tara1 = float(input('Digite a tara do caminhão: '))
 
 #Calculo do sistema
-v1 = Veiculo()
+v1 = Veiculo(placa='AMM-3J12')
 v1.calcular_peso(peso_bruto=bruto, tara=tara1)
 
 #Arquivando no banco de dados
