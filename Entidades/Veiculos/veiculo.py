@@ -2,11 +2,10 @@
 
 class Veiculo:
     def __init__(self, placa):
-        self.placa: placa
+        self.placa = placa
         self.peso_bruto = 0
         self.tara = 0
         self.peso_liquido = 0
-
 
     def calcular_peso(self, peso_bruto, tara):
         self.peso_bruto = peso_bruto
