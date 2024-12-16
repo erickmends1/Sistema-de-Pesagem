@@ -1,6 +1,5 @@
 
 import sqlite3
-from Entidades.Veiculos.veiculo import Veiculo
 
 class BancoDados:
     def __init__(self, nome_db='pesagem.db'):
@@ -13,25 +12,28 @@ class BancoDados:
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS caminhoes(
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                cliente TEXT NOT NULL,
+                motorista TEXT NOT NULL,
                 peso_bruto REAL NOT NULL,
                 tara REAL NOT NULL,
                 peso_liquido REAL NOT NULL       
             )                            
         """)
         
-        self.conexao.commit()  #--> Para confirmar alterações
+        self.conexao.commit()
 
 #Inserindo dados na tabela 
-    def inserir_pesagem(self, peso_bruto, tara, peso_liquido):
+    def inserir_pesagem(self, cliente, motorista, peso_bruto, tara, peso_liquido):
         self.cursor.execute("""
-            INSERT INTO caminhoes(peso_bruto, tara, peso_liquido)
-            VALUES (?, ?, ?)
-        """, (peso_bruto, tara, peso_liquido))
+            INSERT INTO caminhoes(cliente, motorista, peso_bruto, tara, peso_liquido)
+            VALUES (?, ?, ?, ?, ?)
+        """, (cliente, motorista, peso_bruto, tara, peso_liquido))
+
         self.conexao.commit()
 
 
 
-#Deletando dados na tabela
+#Deletando dados na tabela - EMBREVE
     def deletar_pesagem():
         pass
 
@@ -42,3 +44,11 @@ class BancoDados:
         """)
         return self.cursor.fetchall()
     
+#Obtendo id para codigo    
+    def obter_codigo(self):
+        self.cursor.execute("""
+            SELECT id FROM caminhoes       
+        """)
+        return self.cursor.fetchall()
+
+
