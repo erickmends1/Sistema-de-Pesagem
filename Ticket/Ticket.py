@@ -1,23 +1,17 @@
-from openpyxl import load_workbook
-from .Excel_pdf.excel_para_pdf import Excel_para_Pdf
+from .modificando_excel import ModificExel
 
 
 class TicketExcel:
     def __init__(self):
         pass
 
-    def novoTicket(peso_bruto, tara, peso_liquido):
+    def novoTicket(cliente, placa, motorista, peso_bruto, tara, peso_liquido):
 
-        ticket_excel = 'Ticket/ticket_balanca.xlsx'
-
-        planilha = load_workbook(ticket_excel)
-
-        sheet = planilha.active
-
-        sheet['D12'] = peso_bruto
-        sheet['D13'] = tara
-        sheet['D14'] = peso_liquido
-
-        planilha.save('Ticket/ticket_balanca.xlsx')
-
-        Excel_para_Pdf.gerarPdf(ticket_excel)
+        ModificExel.gerarExcel(
+            cliente=cliente,
+            placa=placa,
+            motorista=motorista,
+            peso_bruto=peso_bruto,
+            tara=tara,
+            peso_liquido=peso_liquido
+        )
