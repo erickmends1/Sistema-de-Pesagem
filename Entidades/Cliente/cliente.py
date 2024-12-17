@@ -1,5 +1,5 @@
 
 
-class cliente:
-    def __init__(self, nome):
-        self.nome = nome
+class Cliente:
+    def __init__(self, razao):
+        self.razao = razao
