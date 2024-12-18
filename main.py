@@ -19,13 +19,13 @@ tara1 = float(input('Digite a tara do caminhão: '))
 #---> DIVIDINDO AS VARIAVEIS <---#
 
 #Cliente
-cliente1 = Cliente(razao=cliente)
+cliente1 = Cliente(razao=cliente.upper())
 
 #Motorista
-motorista1 = Motorista(nome=motorista)
+motorista1 = Motorista(nome=motorista.upper())
 
 #Veiculo
-v1 = Veiculo(placa=placa)
+v1 = Veiculo(placa=placa.upper())
 #Calculo do sistema
 v1.calcular_peso(peso_bruto=bruto, tara=tara1)
 
