@@ -15,3 +15,6 @@ class TicketExcel:
             tara=tara,
             peso_liquido=peso_liquido
         )
+
+    def dbTicket():
+        pass
