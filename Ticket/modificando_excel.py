@@ -13,12 +13,19 @@ class ModificExel:
         #Cliente
         sheet['D9'] = cliente
 
+        sheet['D26'] = cliente
+
         #Placa
         sheet['D10'] = placa
+
+        sheet['D27'] = placa
 
         #Motorista
         sheet['H10'] = motorista
 
+        sheet['H27'] = motorista
+        
+        #Pesagem
         sheet['D12'] = peso_bruto
         sheet['D13'] = tara
         sheet['D14'] = peso_liquido
