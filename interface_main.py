@@ -4,6 +4,8 @@ from Entidades.Veiculos.veiculo import Veiculo
 from Ticket.Ticket import TicketExcel
 from Entidades.Cliente .cliente import Cliente
 from Entidades.Motorista.motorista import Motorista
+from Utilitarios.funcoes import calcular
+from Utilitarios.funcoes import convert_to_float
 
 
 
@@ -72,15 +74,31 @@ class App(ctk.CTk):
         self.entry_bruto = ctk.CTkEntry(self, placeholder_text="Digite o peso bruto: ")
         self.entry_bruto.grid(row=4, column=1, padx=10, pady=10, sticky="nsew")
         
+
         # Entrada Tara
         self.entry_tara = ctk.CTkEntry(self, placeholder_text="Digite a tara: ")
         self.entry_tara.grid(row=5, column=1, padx=10, pady=10, sticky="nsew")
-
+        
         #Botão para peso liquido
-        self.botao_calcular = ctk.CTkButton(self, text="PESO LIQUIDO" )
+        self.botao_calcular = ctk.CTkButton(self, text="PESO LIQUIDO", command=lambda: self.calcular_peso_liquido())
         self.botao_calcular.grid(row=6, column=1, padx=10, pady=10)
 
+        # Label para exibir o resultado
+        self.label_result = ctk.CTkLabel(self, text="")
+        self.label_result.grid(row=7, column=0, padx=10, pady=10)
 
+    def calcular_peso_liquido(self):
+        # Obtenha os valores bruto e tara do Entry
+        valor_bruto = convert_to_float(self.entry_bruto.get())
+        valor_tara = convert_to_float(self.entry_tara.get())
+
+        if valor_bruto is not None and valor_tara is not None:
+            # Calcula o peso líquido
+            peso_liquido = calcular(bruto=valor_bruto, tara=valor_tara)
+            self.label_result.configure(text=f"Peso Líquido: {peso_liquido}")
+        else:
+            self.label_result.configure(text="Erro: Insira valores válidos!")
+        
 
 
 # Iniciar a aplicação
