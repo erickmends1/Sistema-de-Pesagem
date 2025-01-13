@@ -101,7 +101,9 @@ class App(ctk.CTk):
         
 
 
+'''
 # Iniciar a aplicação
 if __name__ == "__main__":
     app = App()
     app.mainloop()
+'''
