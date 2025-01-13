@@ -43,6 +43,7 @@ print(table.obter_pesagem())
 
 #Test ticket
 TicketExcel.novoTicket(
+    idTk= table.obter_codigo(),
     cliente=cliente1.razao,
     motorista=motorista1.nome,
     placa=v1.placa,
