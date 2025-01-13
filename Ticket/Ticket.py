@@ -1,13 +1,15 @@
 from .modificando_excel import ModificExel
 
 
+
 class TicketExcel:
     def __init__(self):
         pass
 
-    def novoTicket(cliente, placa, motorista, peso_bruto, tara, peso_liquido):
+    def novoTicket(idTk, cliente, placa, motorista, peso_bruto, tara, peso_liquido):
 
         ModificExel.gerarExcel(
+            idTk= idTk,
             cliente=cliente,
             placa=placa,
             motorista=motorista,
@@ -15,6 +17,3 @@ class TicketExcel:
             tara=tara,
             peso_liquido=peso_liquido
         )
-
-    def dbTicket():
-        pass
