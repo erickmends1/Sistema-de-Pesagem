@@ -46,9 +46,8 @@ class BancoDados:
     
 #Obtendo id para codigo    
     def obter_codigo(self):
+        codigos = []
         self.cursor.execute("""
             SELECT id FROM caminhoes       
         """)
-        return self.cursor.fetchall()
-
-
+        return len(self.cursor.fetchall())
