@@ -3,7 +3,7 @@ from .Excel_pdf.excel_para_pdf import Excel_para_Pdf
 
 class ModificExel:
 
-    def gerarExcel(idTk, cliente, placa, motorista, peso_bruto, tara, peso_liquido):
+    def gerarExcel(idTk, data, hora, cliente, placa,  motorista, produto, peso_bruto, tara, peso_liquido):
 
         ticket_excel = 'Ticket/ticket_balanca.xlsx'
 
@@ -16,21 +16,30 @@ class ModificExel:
         sheet['J21'] = idTk
         sheet['C24'] = idTk
 
+        #Data
+        sheet['G7'] = data
+        sheet['G24'] = data
+
+        #Hora
+        sheet['I7'] = hora
+        sheet['I24'] = hora
+
         #Cliente
         sheet['D9'] = cliente
-
         sheet['D26'] = cliente
 
         #Placa
         sheet['D10'] = placa
-
         sheet['D27'] = placa
 
         #Motorista
         sheet['H10'] = motorista
-
         sheet['H27'] = motorista
-        
+
+        #Produto
+        sheet['D11'] = produto
+        sheet['D28'] = produto
+
         #Pesagem
         sheet['D12'] = peso_bruto
         sheet['D13'] = tara
