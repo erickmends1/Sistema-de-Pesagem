@@ -1,4 +1,4 @@
-
+from datetime import datetime
 
 def calcular(bruto, tara):
     liquido = bruto - tara
@@ -14,3 +14,14 @@ def convert_to_float(numero):
         return None
             
         
+def obter_data():
+    data = datetime.now()
+    data_text = data.strftime('%d/%m/%Y')
+    return data_text
+
+def obter_hora():
+    hora = datetime.now()
+    hora_text = hora.strftime('%H:%M')
+    return hora_text
+
+
