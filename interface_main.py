@@ -8,102 +8,101 @@ from Utilitarios.funcoes import calcular
 from Utilitarios.funcoes import convert_to_float
 
 
+import customtkinter as ctk
 
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("Sistema de Pesagem")
+
+        # Configurações da janela principal
+        self.title("Emapla")
         self.geometry("800x500")
-        
         self._set_appearance_mode("System")
-
-
-        self.columnconfigure(0, weight=1)
-        self.columnconfigure(1, weight=1)
-        self.columnconfigure(2, weight=1)
-    
-
         self.resizable(False, False)
-        
-        # Criar widgets da interface
+
+        # Conteúdo inicial da janela
         self.create_widgets()
 
     def create_widgets(self):
-        # Logo da Emapla
+        # Título principal
+        self.main_title = ctk.CTkLabel(self, text="SISTEMA DE PESAGEM", font=("Arial", 28, "bold"))
+        self.main_title.pack(pady=30)
 
-        # Label LOGO
-        self.label_logo = ctk.CTkLabel(self, text="EMAPLA", font=("Arial", 40))
-        self.label_logo.grid(row=0, column=0, padx=10, pady=10, sticky="e")
-        # Label Cliente
-        self.label_cliente = ctk.CTkLabel(self, text="CLIENTE:", font=("Arial", 15))
-        self.label_cliente.grid(row=1, column=0, padx=10, pady=10, sticky="e")
-        # Label Placa
-        self.label_placa = ctk.CTkLabel(self, text="PLACA:", font=("Arial", 15))
-        self.label_placa.grid(row=2, column=0, padx=10, pady=10, sticky="e")
-        # Label Motorista
-        self.label_motorista = ctk.CTkLabel(self, text="MOTORISTA:", font=("Arial", 15))
-        self.label_motorista.grid(row=2, column=2, padx=10, pady=10, sticky="e")
-        # Label Produto
-        self.label_produto = ctk.CTkLabel(self, text="PRODUTO:", font=("Arial", 15))
-        self.label_produto.grid(row=3, column=0, padx=10, pady=10, sticky="e")
-        # Label Peso bruto
-        self.label_bruto = ctk.CTkLabel(self, text="PESO BRUTO:", font=("Arial", 15))
-        self.label_bruto.grid(row=4, column=0, padx=10, pady=10, sticky="e")
-        # Label Tara
-        self.label_tara = ctk.CTkLabel(self, text="TARA:", font=("Arial", 15))
-        self.label_tara.grid(row=5, column=0, padx=10, pady=10, sticky="e")
+        # Botão de registros acima do frame
+        self.records_button = ctk.CTkButton(self, text="Registros", command=self.show_records)
+        self.records_button.pack(pady=(0, 10), anchor="e", padx=20)
 
+        # Widgets de entrada de dados
+        self.form_frame = ctk.CTkFrame(self)
+        self.form_frame.pack(pady=0, padx=20, fill="x")
 
-        # Entrada Cliente
-        self.entry_cliente = ctk.CTkEntry(self, placeholder_text="Digite a razão social do cliente: ")
-        self.entry_cliente.grid(row=1, column=1, padx=10, pady=10, sticky="nsew")
+        # Cliente
+        self.client_label = ctk.CTkLabel(self.form_frame, text="Cliente:", font=("Arial", 16))
+        self.client_label.grid(row=0, column=0, padx=10, pady=5, sticky="e")
+        self.client_entry = ctk.CTkEntry(self.form_frame, width=300)
+        self.client_entry.grid(row=0, column=1, padx=10, pady=5, sticky="w")
 
-        # Entrada Placa
-        self.entry_placa = ctk.CTkEntry(self, placeholder_text="Digite a placa do veículo: ")
-        self.entry_placa.grid(row=2, column=1, padx=10, pady=10, sticky="nsew")
+        # Placa
+        self.plate_label = ctk.CTkLabel(self.form_frame, text="Placa:", font=("Arial", 16))
+        self.plate_label.grid(row=1, column=0, padx=10, pady=5, sticky="e")
+        self.plate_entry = ctk.CTkEntry(self.form_frame, width=300)
+        self.plate_entry.grid(row=1, column=1, padx=10, pady=5, sticky="w")
 
-        # Entrada Motorista
-        self.entry_motorista = ctk.CTkEntry(self, placeholder_text="Digite nome do motorista: ")
-        self.entry_motorista.grid(row=2, column=3, padx=10, pady=10, sticky="nsew")
+        # Motorista
+        self.motorista_label = ctk.CTkLabel(self.form_frame, text="Motorista:", font=("Arial", 16))
+        self.motorista_label.grid(row=2, column=0, padx=10, pady=5, sticky="e")
+        self.motorista_entry = ctk.CTkEntry(self.form_frame, width=300)
+        self.motorista_entry.grid(row=2, column=1, padx=10, pady=5, sticky="w")
 
-        # Entrada Produto
-        self.entry_produto = ctk.CTkEntry(self, placeholder_text="Digite o produto: ")
-        self.entry_produto.grid(row=3, column=1, padx=10, pady=10, sticky="nsew")
+        # Produto
+        self.product_label = ctk.CTkLabel(self.form_frame, text="Produto:", font=("Arial", 16))
+        self.product_label.grid(row=3, column=0, padx=10, pady=5, sticky="e")
+        self.product_entry = ctk.CTkEntry(self.form_frame, width=300)
+        self.product_entry.grid(row=3, column=1, padx=10, pady=5, sticky="w")
 
-        # Entrada Peso bruto
-        self.entry_bruto = ctk.CTkEntry(self, placeholder_text="Digite o peso bruto: ")
-        self.entry_bruto.grid(row=4, column=1, padx=10, pady=10, sticky="nsew")
-        
+        # Bruto
+        self.bruto_label = ctk.CTkLabel(self.form_frame, text="Bruto:", font=("Arial", 16))
+        self.bruto_label.grid(row=4, column=0, padx=10, pady=5, sticky="e")
+        self.bruto_entry = ctk.CTkEntry(self.form_frame, width=300)
+        self.bruto_entry.grid(row=4, column=1, padx=10, pady=5, sticky="w")
 
-        # Entrada Tara
-        self.entry_tara = ctk.CTkEntry(self, placeholder_text="Digite a tara: ")
-        self.entry_tara.grid(row=5, column=1, padx=10, pady=10, sticky="nsew")
-        
-        #Botão para peso liquido
-        self.botao_calcular = ctk.CTkButton(self, text="PESO LIQUIDO", command=lambda: self.calcular_peso_liquido())
-        self.botao_calcular.grid(row=6, column=1, padx=10, pady=10)
+        # Botão de voltar
+        self.back_button = ctk.CTkButton(self, text="Voltar", command=self.go_back)
+        self.back_button.place(relx=0.0, rely=1.0, anchor="sw", x=10, y=-10)
+        # Tiket
+        self.ticket_label = ctk.CTkLabel(self.form_frame, text="TICKET", font=("Arial", 30))
+        self.ticket_label.grid(row=0, rowspan=2, column=2, columnspan=2, padx=10, pady=5, sticky="ns")
 
-        # Label para exibir o resultado
-        self.label_result = ctk.CTkLabel(self, text="")
-        self.label_result.grid(row=7, column=0, padx=10, pady=10)
+        # Botão de cancelar
+        self.cancel_button = ctk.CTkButton(self.form_frame, text="Cancelar", fg_color="red", command=self.clear_entries)
+        self.cancel_button.grid(row=3, rowspan=4, column=2, padx=10, pady=5, sticky="ns")
+        # Botão de gerar
+        self.gerar_button = ctk.CTkButton(self.form_frame, text="Gerar", fg_color="green")
+        self.gerar_button.grid(row=3, rowspan=4, column=3, padx=10, pady=5, sticky="ns")
 
-    def calcular_peso_liquido(self):
-        # Obtenha os valores bruto e tara do Entry
-        valor_bruto = convert_to_float(self.entry_bruto.get())
-        valor_tara = convert_to_float(self.entry_tara.get())
+        # Botão de saída
+        self.exit_button = ctk.CTkButton(self, text="Sair", command=self.close_app)
+        self.exit_button.place(relx=1.0, rely=1.0, anchor="se", x=-10, y=-10)
 
-        if valor_bruto is not None and valor_tara is not None:
-            # Calcula o peso líquido
-            peso_liquido = calcular(bruto=valor_bruto, tara=valor_tara)
-            self.label_result.configure(text=f"Peso Líquido: {peso_liquido}")
-        else:
-            self.label_result.configure(text="Erro: Insira valores válidos!")
-        
+    def clear_entries(self):
+        # Limpa os campos de entrada
+        self.client_entry.delete(0, ctk.END)
+        self.plate_entry.delete(0, ctk.END)
+        self.product_entry.delete(0, ctk.END)
+        self.bruto_entry.delete(0, ctk.END)
 
+    def show_records(self):
+        # Função para exibir registros (a ser implementada)
+        print("Exibindo registros...")
 
-'''
-# Iniciar a aplicação
+    def go_back(self):
+        # Função temporária para o botão "Voltar"
+        print("Voltando...")
+
+    def close_app(self):
+        self.destroy()
+
+# Execução da aplicação
 if __name__ == "__main__":
     app = App()
     app.mainloop()
-'''
