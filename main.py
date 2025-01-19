@@ -2,7 +2,7 @@
 from Dados.banco_dados import BancoDados
 from Entidades.Veiculos.veiculo import Veiculo
 from Ticket.Ticket import TicketExcel
-from Entidades.Cliente .cliente import Cliente
+from Entidades.Cliente.cliente import Cliente
 from Entidades.Motorista.motorista import Motorista
 from Utilitarios.funcoes import funcoes
 
@@ -61,3 +61,4 @@ TicketExcel.novoTicket(
     tara=v1.tara,
     peso_liquido=v1.peso_liquido
     )
+

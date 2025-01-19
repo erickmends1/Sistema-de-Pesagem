@@ -61,4 +61,3 @@ class BancoDados:
         return len(self.cursor.fetchall())
 
 
-
