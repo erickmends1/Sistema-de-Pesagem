@@ -1,19 +1,15 @@
 import customtkinter as ctk
+from Utilitarios.funcoes import funcoes
 from Dados.banco_dados import BancoDados
 from Entidades.Veiculos.veiculo import Veiculo
 from Ticket.Ticket import TicketExcel
 from Entidades.Cliente .cliente import Cliente
 from Entidades.Motorista.motorista import Motorista
-from Utilitarios.funcoes import calcular
-from Utilitarios.funcoes import convert_to_float
 
-
-import customtkinter as ctk
 
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
-
         # Configurações da janela principal
         self.title("Emapla")
         self.geometry("800x500")
@@ -29,7 +25,7 @@ class App(ctk.CTk):
         self.main_title.pack(pady=30)
 
         # Botão de registros acima do frame
-        self.records_button = ctk.CTkButton(self, text="Registros", command=self.show_records)
+        self.records_button = ctk.CTkButton(self, text="Registros", command=self.exibir_registros)
         self.records_button.pack(pady=(0, 10), anchor="e", padx=20)
 
         # Widgets de entrada de dados
@@ -50,9 +46,9 @@ class App(ctk.CTk):
 
         # Motorista
         self.motorista_label = ctk.CTkLabel(self.form_frame, text="Motorista:", font=("Arial", 16))
-        self.motorista_label.grid(row=2, column=0, padx=10, pady=5, sticky="e")
-        self.motorista_entry = ctk.CTkEntry(self.form_frame, width=300)
-        self.motorista_entry.grid(row=2, column=1, padx=10, pady=5, sticky="w")
+        self.motorista_label.grid(row=0, column=2, padx=10, pady=5, sticky="w")
+        self.motorista_entry = ctk.CTkEntry(self.form_frame, width=215)
+        self.motorista_entry.grid(row=0, column=2, columnspan=3, padx=10, pady=5, sticky="e")
 
         # Produto
         self.product_label = ctk.CTkLabel(self.form_frame, text="Produto:", font=("Arial", 16))
@@ -60,47 +56,113 @@ class App(ctk.CTk):
         self.product_entry = ctk.CTkEntry(self.form_frame, width=300)
         self.product_entry.grid(row=3, column=1, padx=10, pady=5, sticky="w")
 
+        # Tara
+        self.tara_label = ctk.CTkLabel(self.form_frame, text="Tara:", font=("Arial", 16))
+        self.tara_label.grid(row=4, column=0, padx=10, pady=5, sticky="e")
+        self.tara_entry = ctk.CTkEntry(self.form_frame, width=300)
+        self.tara_entry.grid(row=4, column=1, padx=10, pady=5, sticky="w")
+
+
+
         # Bruto
         self.bruto_label = ctk.CTkLabel(self.form_frame, text="Bruto:", font=("Arial", 16))
-        self.bruto_label.grid(row=4, column=0, padx=10, pady=5, sticky="e")
+        self.bruto_label.grid(row=5, column=0, padx=10, pady=5, sticky="e")
         self.bruto_entry = ctk.CTkEntry(self.form_frame, width=300)
-        self.bruto_entry.grid(row=4, column=1, padx=10, pady=5, sticky="w")
+        self.bruto_entry.grid(row=5, column=1, padx=10, pady=5, sticky="w")
+
+
 
         # Botão de voltar
-        self.back_button = ctk.CTkButton(self, text="Voltar", command=self.go_back)
+        self.back_button = ctk.CTkButton(self, text="Voltar", command=self.voltar)
         self.back_button.place(relx=0.0, rely=1.0, anchor="sw", x=10, y=-10)
+
         # Tiket
         self.ticket_label = ctk.CTkLabel(self.form_frame, text="TICKET", font=("Arial", 30))
-        self.ticket_label.grid(row=0, rowspan=2, column=2, columnspan=2, padx=10, pady=5, sticky="ns")
+        self.ticket_label.grid(row=1, rowspan=2, column=2, columnspan=2, padx=10, pady=5, sticky="ns")
 
         # Botão de cancelar
-        self.cancel_button = ctk.CTkButton(self.form_frame, text="Cancelar", fg_color="red", command=self.clear_entries)
+        self.cancel_button = ctk.CTkButton(self.form_frame, text="Cancelar", fg_color="red", font=("Arial", 20, "bold"), command=self.limpar)
         self.cancel_button.grid(row=3, rowspan=4, column=2, padx=10, pady=5, sticky="ns")
+
         # Botão de gerar
-        self.gerar_button = ctk.CTkButton(self.form_frame, text="Gerar", fg_color="green")
+        self.gerar_button = ctk.CTkButton(self.form_frame, text="Gerar", fg_color="green", font=("Arial", 20, "bold"), command=self.gerarTK)
         self.gerar_button.grid(row=3, rowspan=4, column=3, padx=10, pady=5, sticky="ns")
 
         # Botão de saída
-        self.exit_button = ctk.CTkButton(self, text="Sair", command=self.close_app)
+        self.exit_button = ctk.CTkButton(self, text="Sair", command=self.sair)
         self.exit_button.place(relx=1.0, rely=1.0, anchor="se", x=-10, y=-10)
 
-    def clear_entries(self):
-        # Limpa os campos de entrada
-        self.client_entry.delete(0, ctk.END)
-        self.plate_entry.delete(0, ctk.END)
-        self.product_entry.delete(0, ctk.END)
-        self.bruto_entry.delete(0, ctk.END)
 
-    def show_records(self):
-        # Função para exibir registros (a ser implementada)
-        print("Exibindo registros...")
+    def gerarTK(self):
+        table = BancoDados()
 
-    def go_back(self):
-        # Função temporária para o botão "Voltar"
-        print("Voltando...")
+        # #---> DIVIDINDO AS VARIAVEIS <---#
 
-    def close_app(self):
-        self.destroy()
+        #Cliente
+        Cliente(razao=self.client_entry.get())
+
+        #Motorista
+        Motorista(nome=self.motorista_entry.get())
+
+        #Veiculo
+        v1 = Veiculo(placa=self.plate_entry.get())
+        #Calculo do sistema
+        
+        v1.calcular_peso(peso_bruto=funcoes.convert_to_float(self.bruto_entry.get()), tara=funcoes.convert_to_float(self.tara_entry.get()))
+
+        
+        table.inserir_pesagem(
+            data=funcoes.obter_data(),
+            hora=funcoes.obter_hora(),
+            cliente=self.client_entry.get().upper(),
+            placa=self.plate_entry.get().upper(), 
+            motorista=self.motorista_entry.get().upper(),
+            produto=self.product_entry.get().upper(), 
+            peso_bruto=funcoes.convert_to_float(self.bruto_entry.get()), 
+            tara=funcoes.convert_to_float(self.tara_entry.get()), 
+            peso_liquido=v1.peso_liquido
+            )
+        #Print do banco de dados
+        print(table.obter_pesagem())
+
+        TicketExcel.novoTicket(
+            idTk=table.obter_codigo(),
+            data=funcoes.obter_data(),
+            hora=funcoes.obter_hora(),
+            cliente=self.client_entry.get().upper(),
+            motorista=self.motorista_entry.get().upper(),
+            placa=self.plate_entry.get().upper(),
+            produto=self.product_entry.get().upper(),
+            peso_bruto=funcoes.convert_to_float(self.bruto_entry.get()),
+            tara=funcoes.convert_to_float(self.tara_entry.get()),
+            peso_liquido=v1.peso_liquido
+            )
+        
+        
+        
+
+
+    def limpar(self):
+
+        funcoes.apagar_entradas(
+            cliente=self.client_entry,
+            placa=self.plate_entry,
+            motorista=self.motorista_entry,
+            produto=self.product_entry,
+            bruto=self.bruto_entry
+        )
+
+    def exibir_registros(self):
+
+        funcoes.registros()
+
+    def voltar(self):
+        
+        funcoes.voltar()
+
+    def sair(self):
+
+        funcoes.fechar_app(self=self)
 
 # Execução da aplicação
 if __name__ == "__main__":

@@ -35,8 +35,6 @@ class BancoDados:
 
         self.conexao.commit()
 
-
-
 #Deletando dados na tabela - EMBREVE
     def deletar_pesagem():
         pass

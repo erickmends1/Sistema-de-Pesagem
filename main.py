@@ -4,7 +4,7 @@ from Entidades.Veiculos.veiculo import Veiculo
 from Ticket.Ticket import TicketExcel
 from Entidades.Cliente .cliente import Cliente
 from Entidades.Motorista.motorista import Motorista
-from Utilitarios.funcoes import *
+from Utilitarios.funcoes import funcoes
 
 
 #Criando tabela
@@ -21,20 +21,20 @@ tara1 = float(input('Digite a tara do caminhão: '))
 #---> DIVIDINDO AS VARIAVEIS <---#
 
 #Cliente
-cliente1 = Cliente(razao=cliente.upper())
+cliente1 = Cliente(razao=cliente)
 
 #Motorista
-motorista1 = Motorista(nome=motorista.upper())
+motorista1 = Motorista(nome=motorista)
 
 #Veiculo
-v1 = Veiculo(placa=placa.upper())
+v1 = Veiculo(placa=placa)
 #Calculo do sistema
 v1.calcular_peso(peso_bruto=bruto, tara=tara1)
 
 #Arquivando no banco de dados
 table.inserir_pesagem(
-    data=obter_data(),
-    hora=obter_hora(),
+    data=funcoes.obter_data(),
+    hora=funcoes.obter_hora(),
     cliente=cliente1.razao,
     placa=placa, 
     motorista=motorista1.nome,
@@ -51,8 +51,8 @@ print(table.obter_pesagem())
 #Test ticket
 TicketExcel.novoTicket(
     idTk=table.obter_codigo(),
-    data=obter_data(),
-    hora=obter_hora(),
+    data=funcoes.obter_data(),
+    hora=funcoes.obter_hora(),
     cliente=cliente1.razao,
     motorista=motorista1.nome,
     placa=v1.placa,
